@@ -1,17 +1,24 @@
 from geopy.distance import geodesic
 
-# Example coordinates for Astana spots
-ASTANA_SPOTS = [
-    {"name": "Bayterek Tower", "coords": (51.1283, 71.4305)},
-    {"name": "Khan Shatyr", "coords": (51.1327, 71.4038)},
-    {"name": "Botanical Garden", "coords": (51.1031, 71.4172)}
-]
 
-def find_nearest(user_lat, user_lon):
+def calculate_nearest_places(user_lat, user_lon, all_places, limit=5):
+    """
+    Calculates distance from user to all places and returns the top N closest.
+    """
     user_pos = (user_lat, user_lon)
-    # Sort spots by distance
-    sorted_spots = sorted(
-        ASTANA_SPOTS,
-        key=lambda x: geodesic(user_pos, x['coords']).kilometers
-    )
-    return sorted_spots[0] # Returns the single closest spot
+
+    # Add distance key to every dictionary in the list
+    for place in all_places:
+        place_pos = (place['lat'], place['lon'])
+        place['distance'] = geodesic(user_pos, place_pos).kilometers
+
+    # Sort by distance (ascending)
+    sorted_places = sorted(all_places, key=lambda x: x['distance'])
+    return sorted_places[:limit]
+
+
+def format_feedback(reviews):
+    """Formats a list of reviews into a clean string."""
+    if not reviews:
+        return "No feedback yet! Be the first to leave one."
+    return "\n".join([f"• {r}" for r in reviews])

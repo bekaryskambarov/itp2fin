@@ -1,35 +1,30 @@
 import sqlite3
 
-def init_db():
-    conn = sqlite3.connect('astana_bot.db')
-    cursor = conn.cursor()
-    # Create table for favorites
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS favorites (
-            user_id INTEGER,
-            place_name TEXT,
-            UNIQUE(user_id, place_name)
-        )
-    ''')
-    conn.commit()
-    conn.close()
+class DatabaseManager:
+    def __init__(self, db_path='astana_bot.db'):
+        self.conn = sqlite3.connect(db_path)
+        self.create_tables()
 
-def add_favorite(user_id, place_name):
-    conn = sqlite3.connect('astana_bot.db')
-    cursor = conn.cursor()
-    try:
-        cursor.execute("INSERT INTO favorites (user_id, place_name) VALUES (?, ?)", (user_id, place_name))
-        conn.commit()
-        return True
-    except sqlite3.IntegrityError:
-        return False # Already in favorites
-    finally:
-        conn.close()
+    def create_tables(self):
+        cursor = self.conn.cursor()
+        # Table for user feedback
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS reviews (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                place_name TEXT,
+                feedback TEXT,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        self.conn.commit()
 
-def get_favorites(user_id):
-    conn = sqlite3.connect('astana_bot.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT place_name FROM favorites WHERE user_id = ?", (user_id,))
-    rows = cursor.fetchall()
-    conn.close()
-    return [row[0] for row in rows]
+    def add_review(self, place_name, feedback):
+        cursor = self.conn.cursor()
+        cursor.execute("INSERT INTO reviews (place_name, feedback) VALUES (?, ?)",
+                       (place_name, feedback))
+        self.conn.commit()
+
+    def get_reviews_by_place(self, place_name):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT feedback FROM reviews WHERE place_name = ?", (place_name,))
+        return [row[0] for row in cursor.fetchall()]
