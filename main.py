@@ -8,12 +8,6 @@ from geopy.distance import geodesic
 
 from notion_client import Client # Add this at the very top
 
-# 1. SETUP
-BOT_TOKEN = "8734845651:AAFdQWfsYT9XfM7JqqDpobcSMfYdSMRzsXo"
-# Get this from the 'Connections' page we created earlier
-NOTION_TOKEN = "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"
-# Get this from your Notion Page URL
-NOTION_PAGE_ID = "PASTE_YOUR_PAGE_ID_HERE"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
