@@ -23,7 +23,7 @@ This is our final course project for the Introduction to Programming 2. We devel
 3. Environment Management (Security): For security reasons, we kept the Telegram bot token hidden. Instead of putting it in the plain text code where it could be leaked on GitHub, we used `os.getenv("BOT_TOKEN")` to fetch it securely from the host server.
 
 ## We split the code into several files to make it easier to navigate:
-*-*main.py — here the bot itself launches, buttons are created, and text messages from users are processed.
--database.py — this file is responsible for working with the SQLite3 database. It creates tables, gets information about places, and saves new reviews.
--utils.py — here lies the function that calculates the distance by coordinates so the bot can show the places that are closest.
--requirements.txt — the list of libraries that need to be installed so the project can launch (for example, aiogram and geopy).
+ - main.py — here the bot itself launches, buttons are created, and text messages from users are processed.
+ - database.py — this file is responsible for working with the SQLite3 database. It creates tables, gets information about places, and saves new reviews.
+- utils.py — here lies the function that calculates the distance by coordinates so the bot can show the places that are closest.
+- requirements.txt — the list of libraries that need to be installed so the project can launch (for example, aiogram and geopy).
