@@ -2,7 +2,7 @@
 # Astana Guide Bot
 
 ## Project Description
-This is our final course project for the programming class. We developed an interactive Telegram bot that serves as a digital city guide for Astana. The main goal of this project is to help university students, tourists, and locals quickly discover popular city locations, get directions, and read or submit user feedback directly within Telegram.
+This is our final course project for the Introduction to Programming 2. We developed an interactive Telegram bot that serves as a digital city guide for Astana. The main goal of this project is to help university students, tourists, and locals quickly discover popular city locations, get directions, and read or submit user feedback directly within Telegram.
 
 ## Main Functionalities
 - Categorized Search: Users can browse locations sorted into specific types such as restaurants, parks, entertainment spots, and libraries.
@@ -22,13 +22,9 @@ This is our final course project for the programming class. We developed an inte
 2. Decorators: We used native framework decorators like `@dp.message()` and `@dp.callback_query()` across the main module. These handle incoming messages and button clicks seamlessly.
 3. Environment Management (Security): For security reasons, we kept the Telegram bot token hidden. Instead of putting it in the plain text code where it could be leaked on GitHub, we used `os.getenv("BOT_TOKEN")` to fetch it securely from the host server.
 
-## Local Installation and Setup
-1. Clone the repository from GitHub:
-   git clone https://github.com/bekaryskambarov/ITP2FIN.git
-2. Navigate to the project folder:
-   cd ITP2FIN
-3. Install all required dependencies:
-   pip install -r requirements.txt
-4. Configure your Telegram bot token in your system environment.
-5. Launch the application:
-   python ITP2FIN/main.py
+## We split the code into several files to make it easier to navigate:
+
+-main.py — here the bot itself launches, buttons are created, and text messages from users are processed.
+-database.py — this file is responsible for working with the SQLite3 database. It creates tables, gets information about places, and saves new reviews.
+=utils.py — here lies the function that calculates the distance by coordinates so the bot can show the places that are closest.
+-requirements.txt — the list of libraries that need to be installed so the project can launch (for example, aiogram and geopy).
