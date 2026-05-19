@@ -1,5 +1,5 @@
 # ITP2FIN
-# Astana Guide Bot
+# Step by Step Astana
 
 ## Project Description
 This is our final course project for the Introduction to Programming 2. We developed an interactive Telegram bot that serves as a digital city guide for Astana. The main goal of this project is to help university students, tourists, and locals quickly discover popular city locations, get directions, and read or submit user feedback directly within Telegram.
